@@ -10,7 +10,6 @@
 
 namespace Kdyby\Doctrine\Collections\Lazy;
 
-use Closure;
 use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
