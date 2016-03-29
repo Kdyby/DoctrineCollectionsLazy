@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the file license.txt that was distributed with this source code.
  */
 
-namespace Kdyby\Doctrine\Collections;
+namespace Kdyby\Doctrine\Collections\Lazy;
 
 use Closure;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -40,7 +40,7 @@ class LazyCollection implements Collection, Selectable
 	public function __construct($callback)
 	{
 		if (!is_callable($callback)) {
-			throw new \InvalidArgumentException('Given value is not a callable type.');
+			throw new InvalidArgumentException('Given value is not a callable type.');
 		}
 		$this->callback = $callback;
 	}
@@ -60,7 +60,7 @@ class LazyCollection implements Collection, Selectable
 			}
 
 			if (!is_array($items)) {
-				throw new Kdyby\Doctrine\UnexpectedValueException(sprintf('Expected array or Traversable, but %s given.', is_object($items) ? get_class($items) : gettype($items)));
+				throw new UnexpectedValueException(sprintf('Expected array or Traversable, but %s given.', is_object($items) ? get_class($items) : gettype($items)));
 			}
 
 			$this->inner = new ArrayCollection($items);
