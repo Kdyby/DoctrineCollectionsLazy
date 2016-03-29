@@ -1,0 +1,34 @@
+{
+	"name": "kdyby/doctrine-collections-lazy",
+	"type": "library",
+	"description": "Lazy collection for doctrine/collections",
+	"keywords": ["kdyby", "doctrine", "orm", "collection", "lazy"],
+	"homepage": "http://kdyby.org",
+	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"authors": [
+		{
+			"name": "Filip Procházka",
+			"homepage": "http://filip-prochazka.com",
+			"email": "filip@prochazka.su"
+		}
+	],
+	"support": {
+		"email": "filip@prochazka.su",
+		"issues": "https://github.com/Kdyby/DoctrineCollectionsLazy/issues"
+	},
+	"require": {
+		"php": ">=5.4",
+		"doctrine/collections": "~1.1"
+	},
+	"require-dev": {
+		"nette/tester": "~1.7"
+	},
+	"autoload": {
+		"psr-4": {
+			"Kdyby\\Doctrine\\Collections\\Lazy\\": "src/"
+		},
+		"classmap": [
+			"src/exceptions.php"
+		]
+	}
+}
