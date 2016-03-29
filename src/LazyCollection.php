@@ -48,10 +48,10 @@ class LazyCollection extends AbstractLazyCollection implements Selectable
 	 */
 	public function matching(Criteria $criteria)
 	{
+		$this->initialize();
 		if (!$this->collection instanceof Selectable) {
 			throw new NotSupportedException(sprintf('Collection %s does not implement Doctrine\Common\Collections\Selectable, so you cannot call ->matching() over it.', get_class($this->collection)));
 		}
-
 		return $this->collection->matching($criteria);
 	}
 
