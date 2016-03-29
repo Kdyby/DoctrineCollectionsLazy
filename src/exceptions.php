@@ -24,6 +24,13 @@ class InvalidArgumentException extends \InvalidArgumentException implements Exce
 
 
 
+class NotSupportedException extends \LogicException implements Exception
+{
+
+}
+
+
+
 class UnexpectedValueException extends \UnexpectedValueException implements Exception
 {
 
