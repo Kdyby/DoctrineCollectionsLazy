@@ -85,6 +85,28 @@ class LazyCollectionTest extends Tester\TestCase
 		Assert::same([1 => $b], $matched->toArray());
 	}
 
+
+
+	public function testInvalidCallable()
+	{
+		Assert::exception(function () {
+			new LazyCollection(1);
+		}, 'Kdyby\Doctrine\Collections\Lazy\InvalidArgumentException', 'Given value is not a callable type.');
+	}
+
+
+
+	public function testNotIterable()
+	{
+		$lazy = new LazyCollection(function () {
+			return 1;
+		});
+
+		Assert::exception(function () use ($lazy) {
+			$lazy->count();
+		}, 'Kdyby\Doctrine\Collections\Lazy\UnexpectedValueException', 'Expected array or Traversable, but integer given.');
+	}
+
 }
 
 
