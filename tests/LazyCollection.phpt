@@ -8,6 +8,7 @@ namespace KdybyTests\Doctrine\Collections\Lazy;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
+use Kdyby;
 use Kdyby\Doctrine\Collections\Lazy\LazyCollection;
 use Tester;
 use Tester\Assert;
@@ -81,7 +82,7 @@ class LazyCollectionTest extends Tester\TestCase
 		$matched = $lazy->matching($criteria);
 
 		Assert::notSame($lazy, $matched);
-		Assert::type('Doctrine\Common\Collections\ArrayCollection', $matched);
+		Assert::type(ArrayCollection::class, $matched);
 		Assert::same([1 => $b], $matched->toArray());
 	}
 
@@ -91,7 +92,7 @@ class LazyCollectionTest extends Tester\TestCase
 	{
 		Assert::exception(function () {
 			new LazyCollection(1);
-		}, 'Kdyby\Doctrine\Collections\Lazy\InvalidArgumentException', 'Given value is not a callable type.');
+		}, Kdyby\Doctrine\Collections\Lazy\InvalidArgumentException::class, 'Given value is not a callable type.');
 	}
 
 
@@ -104,7 +105,7 @@ class LazyCollectionTest extends Tester\TestCase
 
 		Assert::exception(function () use ($lazy) {
 			$lazy->count();
-		}, 'Kdyby\Doctrine\Collections\Lazy\UnexpectedValueException', 'Expected array or Traversable, but integer given.');
+		}, Kdyby\Doctrine\Collections\Lazy\UnexpectedValueException::class, 'Expected array or Traversable, but integer given.');
 	}
 
 }
