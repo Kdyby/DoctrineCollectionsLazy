@@ -8,8 +8,6 @@ This package provides an implementation of lazy collection for Doctrine/Collecti
 [![Latest stable](https://img.shields.io/packagist/v/kdyby/doctrine-collections-lazy.svg)](https://packagist.org/packages/kdyby/doctrine-collections-lazy)
 [![Coverage Status](https://coveralls.io/repos/github/Kdyby/DoctrineCollectionsLazy/badge.svg?branch=master)](https://coveralls.io/github/Kdyby/DoctrineCollectionsLazy?branch=master)
 
-
-
 Installation
 ------------
 
@@ -18,7 +16,6 @@ The best way to install Kdyby/DoctrineCollectionsLazy is using  [Composer](http:
 ```sh
 $ composer require kdyby/doctrine-collections-lazy
 ```
-
 
 Usage
 -----
