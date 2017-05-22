@@ -6,21 +6,15 @@
 
 namespace KdybyTests\Doctrine\Collections\Lazy;
 
+use ArrayIterator;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
-use Kdyby;
 use Kdyby\Doctrine\Collections\Lazy\LazyCollection;
-use Tester;
 use Tester\Assert;
 
 require_once __DIR__ . '/bootstrap.php';
 
-
-
-/**
- * @author Filip Procházka <filip@prochazka.su>
- */
-class LazyCollectionTest extends Tester\TestCase
+class LazyCollectionTest extends \Tester\TestCase
 {
 
 	public function testFromArray()
@@ -36,22 +30,18 @@ class LazyCollectionTest extends Tester\TestCase
 		Assert::true($invoked);
 	}
 
-
-
 	public function testFromTraversable()
 	{
 		$invoked = FALSE;
 		$lazy = new LazyCollection(function () use (&$invoked) {
 			$invoked = TRUE;
-			return new \ArrayIterator([1 => 2, 3 => 4]);
+			return new ArrayIterator([1 => 2, 3 => 4]);
 		});
 
 		Assert::false($invoked);
 		Assert::same([1 => 2, 3 => 4], $lazy->toArray());
 		Assert::true($invoked);
 	}
-
-
 
 	public function testFromOtherCollection()
 	{
@@ -65,8 +55,6 @@ class LazyCollectionTest extends Tester\TestCase
 		Assert::same([1 => 2, 3 => 4], $lazy->toArray());
 		Assert::true($invoked);
 	}
-
-
 
 	public function testMatching()
 	{
@@ -86,16 +74,12 @@ class LazyCollectionTest extends Tester\TestCase
 		Assert::same([1 => $b], $matched->toArray());
 	}
 
-
-
 	public function testInvalidCallable()
 	{
 		Assert::exception(function () {
 			new LazyCollection(1);
-		}, Kdyby\Doctrine\Collections\Lazy\InvalidArgumentException::class, 'Given value is not a callable type.');
+		}, \Kdyby\Doctrine\Collections\Lazy\InvalidArgumentException::class, 'Given value is not a callable type.');
 	}
-
-
 
 	public function testNotIterable()
 	{
@@ -105,11 +89,9 @@ class LazyCollectionTest extends Tester\TestCase
 
 		Assert::exception(function () use ($lazy) {
 			$lazy->count();
-		}, Kdyby\Doctrine\Collections\Lazy\UnexpectedValueException::class, 'Expected array or Traversable, but integer given.');
+		}, \Kdyby\Doctrine\Collections\Lazy\UnexpectedValueException::class, 'Expected array or Traversable, but integer given.');
 	}
 
 }
-
-
 
 (new LazyCollectionTest())->run();

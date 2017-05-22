@@ -15,23 +15,17 @@ interface Exception
 
 }
 
-
-
-class InvalidArgumentException extends \InvalidArgumentException implements Exception
+class InvalidArgumentException extends \InvalidArgumentException implements \Kdyby\Doctrine\Collections\Lazy\Exception
 {
 
 }
 
-
-
-class NotSupportedException extends \LogicException implements Exception
+class NotSupportedException extends \LogicException implements \Kdyby\Doctrine\Collections\Lazy\Exception
 {
 
 }
 
-
-
-class UnexpectedValueException extends \UnexpectedValueException implements Exception
+class UnexpectedValueException extends \UnexpectedValueException implements \Kdyby\Doctrine\Collections\Lazy\Exception
 {
 
 }

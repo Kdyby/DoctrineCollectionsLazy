@@ -10,19 +10,13 @@
 
 namespace Kdyby\Doctrine\Collections\Lazy;
 
-use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Selectable;
-use Kdyby;
+use Traversable;
 
-
-
-/**
- * @author Filip Procházka <filip@prochazka.su>
- */
-class LazyCollection extends AbstractLazyCollection implements Selectable
+class LazyCollection extends \Doctrine\Common\Collections\AbstractLazyCollection implements \Doctrine\Common\Collections\Selectable
 {
 
 	/**
@@ -30,17 +24,13 @@ class LazyCollection extends AbstractLazyCollection implements Selectable
 	 */
 	private $callback;
 
-
-
 	public function __construct($callback)
 	{
 		if (!is_callable($callback)) {
-			throw new InvalidArgumentException('Given value is not a callable type.');
+			throw new \Kdyby\Doctrine\Collections\Lazy\InvalidArgumentException('Given value is not a callable type.');
 		}
 		$this->callback = $callback;
 	}
-
-
 
 	/**
 	 * {@inheritdoc}
@@ -49,12 +39,13 @@ class LazyCollection extends AbstractLazyCollection implements Selectable
 	{
 		$this->initialize();
 		if (!$this->collection instanceof Selectable) {
-			throw new NotSupportedException(sprintf('Collection %s does not implement Doctrine\Common\Collections\Selectable, so you cannot call ->matching() over it.', get_class($this->collection)));
+			throw new \Kdyby\Doctrine\Collections\Lazy\NotSupportedException(sprintf(
+				'Collection %s does not implement Doctrine\Common\Collections\Selectable, so you cannot call ->matching() over it.',
+				get_class($this->collection)
+			));
 		}
 		return $this->collection->matching($criteria);
 	}
-
-
 
 	protected function doInitialize()
 	{
@@ -64,12 +55,15 @@ class LazyCollection extends AbstractLazyCollection implements Selectable
 			if ($items instanceof Collection) {
 				$items = $items->toArray();
 
-			} elseif ($items instanceof \Traversable) {
+			} elseif ($items instanceof Traversable) {
 				$items = iterator_to_array($items, TRUE);
 			}
 
 			if (!is_array($items)) {
-				throw new UnexpectedValueException(sprintf('Expected array or Traversable, but %s given.', is_object($items) ? get_class($items) : gettype($items)));
+				throw new \Kdyby\Doctrine\Collections\Lazy\UnexpectedValueException(sprintf(
+					'Expected array or Traversable, but %s given.',
+					is_object($items) ? get_class($items) : gettype($items)
+				));
 			}
 
 			$this->collection = new ArrayCollection($items);
